@@ -6,6 +6,9 @@ export type Employee = {
   name: string;
   role: string;
   active: boolean;
+  locationId: LocationId;
+  phone?: string;
+  email?: string;
 };
 
 export type ScheduleEntry = {
