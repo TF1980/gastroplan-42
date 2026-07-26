@@ -1,0 +1,14 @@
+GastroPlan 4.2 auf dem iPad zu GitHub hochladen
+
+WICHTIG: GitHub entpackt ZIP-Dateien nicht automatisch.
+
+Empfohlener sauberer Weg:
+1. ZIP-Datei in der Dateien-App antippen; iPadOS erstellt den entpackten Ordner GastroPlan_4_2.
+2. In GitHub am besten ein NEUES Repository namens gastroplan-42 erstellen.
+3. Im neuen Repository „uploading an existing file“ wählen.
+4. Über „choose your files“ die Dateien aus dem entpackten Ordner auswählen.
+5. Ordner wie app, lib und supabase müssen ebenfalls mit ihren Inhalten hochgeladen werden.
+6. Commit message: GastroPlan 4.2 initial hochladen.
+7. Neues Repository in Vercel importieren.
+
+Nicht zusammen mit alten Projektdateien mischen. Alte Dateien wie next.config.mjs, eine alte package-lock.json oder einzelne page.tsx/globals.css im Hauptordner können Konflikte auslösen.
