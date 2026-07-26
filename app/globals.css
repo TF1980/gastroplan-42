@@ -94,3 +94,30 @@ textarea { resize: vertical; }
   .manager-actions { justify-content: stretch; }
   .manager-actions button { flex: 1; }
 }
+
+.view-switch { display:flex; gap:6px; padding:4px; background:#e9eef5; border-radius:12px; }
+.view-switch button { border:0; background:transparent; padding:10px 16px; border-radius:9px; font-weight:800; }
+.view-switch button.active { background:white; color:var(--blue); box-shadow:0 2px 8px rgba(16,42,67,.12); }
+.reply-summary { display:flex; align-items:center; gap:10px; border:1px solid #f2c94c; background:#fff9df; padding:10px 12px; border-radius:12px; }
+.reply-summary strong { font-size:24px; color:#8a5a00; }
+.reply-summary span { max-width:180px; font-size:12px; color:#745000; }
+.availability-pill { width:100%; border:0; border-radius:9px; padding:7px 8px; font-weight:800; font-size:11px; text-align:left; }
+.availability-pill span { display:block; margin-top:3px; font-size:10px; }
+.available { background:#e8f7ed !important; color:#18743b !important; border-color:#b7e0c4 !important; }
+.partial { background:#fff6d8 !important; color:#8a5a00 !important; border-color:#efd782 !important; }
+.unavailable, .sick { background:#fdecec !important; color:#b42318 !important; border-color:#f1b9b5 !important; }
+.vacation { background:#eaf1ff !important; color:#2458b8 !important; border-color:#bfd0f5 !important; }
+.school { background:#f2eafe !important; color:#6941c6 !important; border-color:#d6c3f5 !important; }
+.unknown { background:#f2f4f7 !important; color:#667085 !important; border-color:#d0d5dd !important; }
+.add-shift { border:1px dashed #9fb0c2; background:white; border-radius:8px; padding:6px 8px; color:var(--blue); font-size:11px; font-weight:800; }
+.employee-availability { padding:22px; }
+.employee-intro { display:flex; justify-content:space-between; gap:20px; align-items:flex-start; margin-bottom:18px; }
+.employee-intro h2 { margin:0 0 6px; color:var(--navy); }
+.employee-intro p { margin:0; color:var(--muted); }
+.week-badge { background:var(--blue-soft); color:var(--blue); padding:9px 12px; border-radius:999px; font-weight:800; white-space:nowrap; }
+.availability-cards { display:grid; grid-template-columns:repeat(7,minmax(120px,1fr)); gap:10px; overflow-x:auto; }
+.availability-card { min-height:140px; border:1px solid var(--line); border-radius:14px; padding:14px; text-align:left; display:flex; flex-direction:column; gap:9px; }
+.availability-card strong { color:var(--navy); }
+.availability-card span { font-weight:800; }
+.availability-card small { line-height:1.35; }
+@media (max-width:760px){ .view-switch{width:100%}.view-switch button{flex:1}.employee-intro{flex-direction:column}.availability-cards{grid-template-columns:repeat(7,145px)} }
