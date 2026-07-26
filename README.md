@@ -1,4 +1,4 @@
-# GastroPlan 4.2
+# GastroPlan 4.3
 
 Mobiler Wochen-Dienstplan für drei Gastronomiebetriebe.
 
@@ -23,3 +23,11 @@ In Vercel unter Settings → Environment Variables eintragen:
 - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
 
 Das SQL-Schema liegt unter `supabase/schema.sql`.
+
+
+## Neu in Version 4.3
+- Mitarbeiter bearbeiten
+- Mitarbeiter aktivieren/deaktivieren
+- Mitarbeiter löschen, sofern keine Dienstplaneinträge bestehen
+- Stammbetrieb, Telefon und E-Mail hinterlegen
+- Mitarbeiter werden je Betrieb gefiltert
