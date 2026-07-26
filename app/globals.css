@@ -71,3 +71,26 @@ textarea { resize: vertical; }
   .weeknav { order: 3; }
   .planner-grid { grid-template-columns: 130px repeat(7, minmax(132px, 1fr)); min-width: 1054px; }
 }
+.employee-cell { display: flex; justify-content: space-between; gap: 8px; }
+.employee-main { min-width: 0; }
+.employee-actions { display: flex; gap: 4px; align-items: flex-start; }
+.employee-actions button { border: 1px solid var(--line); background: white; border-radius: 7px; padding: 4px 6px; font-size: 12px; }
+.employee-actions button:hover { background: #f1f5f9; }
+.top-actions { display: flex; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
+.employee-manager { width: min(760px, 100%); }
+.manager-list { display: grid; gap: 10px; }
+.manager-item { display: flex; justify-content: space-between; gap: 14px; padding: 13px; border: 1px solid var(--line); border-radius: 12px; }
+.manager-item.inactive { opacity: .58; background: #f8fafc; }
+.manager-item strong, .manager-item span, .manager-item small { display: block; }
+.manager-item span, .manager-item small { margin-top: 4px; color: var(--muted); font-size: 13px; }
+.manager-actions { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; justify-content: flex-end; }
+.manager-actions button { border: 1px solid var(--line); border-radius: 8px; background: white; padding: 8px 10px; font-weight: 700; }
+.manager-actions .danger { color: #b42318; }
+@media (max-width: 620px) {
+  .topbar { flex-direction: column; }
+  .top-actions { width: 100%; justify-content: stretch; }
+  .top-actions button { flex: 1; }
+  .manager-item { flex-direction: column; }
+  .manager-actions { justify-content: stretch; }
+  .manager-actions button { flex: 1; }
+}
