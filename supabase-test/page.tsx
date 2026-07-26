@@ -1,8 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { getSupabaseClient } from "../../lib/supabase";
-
+import { getSupabaseClient } from "../lib/supabase";
 export default function SupabaseTestPage() {
   const [status, setStatus] = useState("Verbindung wird geprüft ...");
 
