@@ -138,9 +138,7 @@ export default function Home() {
     <ul>
       {employees.map((employee) => (
         <li key={employee.id}>
-          <strong>{employee.first_name}</strong> – {employee.position} (
-          {employee.weekly_hours} Std.) –{" "}
-          {employee.locations?.name ?? "Kein Betrieb"}
+          <strong>{employee.name}</strong> – {employee.position} (          {employee.locations?.name ?? "Kein Betrieb"}
         </li>
       ))}
     </ul>
