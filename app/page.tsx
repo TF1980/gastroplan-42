@@ -120,47 +120,29 @@ export default function Home() {
   function deleteEntry(id: string) { setEntries((items) => items.filter((item) => item.id !== id)); }
 
   return (
-    <main className="shell">
-      <header className="topbar">
-        <div><p className="eyebrow">Gastronomie-Personalplanung</p><h1>GastroPlan <span>4.4</span></h1></div>
-        <div className="view-switch"><button className={view === "planner" ? "active" : ""} onClick={() => setView("planner")}>Planer</button><button className={view === "employee" ? "active" : ""} onClick={() => setView("employee")}>Mitarbeiter</button></div>
-      </header>
+  <main style={{ padding: 30, fontFamily: "Arial, sans-serif" }}>
+    <h1>GastroPlan – Supabase Test</h1>
 
-      <section className="toolbar card">
-        <label><span>Betrieb</span><select value={locationId} onChange={(event) => setLocationId(event.target.value as LocationId)}>{locations.map((location) => <option key={location.id} value={location.id}>{location.name}</option>)}</select></label>
-        <div className="weeknav"><button onClick={() => setWeekStart(addDays(weekStart, -7))}>←</button><strong>{formatRange(weekStart)}</strong><button onClick={() => setWeekStart(addDays(weekStart, 7))}>→</button></div>
-        {view === "planner" ? <div className="reply-summary"><strong>{missingReplies}</strong><span>Mitarbeiter ohne vollständige Rückmeldung</span></div> : <label><span>Mitarbeiter</span><select value={currentEmployee?.id ?? ""} onChange={(event) => setCurrentEmployeeId(event.target.value)}>{activeEmployees.map((employee) => <option key={employee.id} value={employee.id}>{employee.name}</option>)}</select></label>}
-      </section>
+    <p>{status}</p>
 
-      {view === "planner" ? (
-        <section className="planner card">
-          <div className="planner-grid header-row"><div className="employee-head">Mitarbeiter</div>{weekDays.map((day) => <div className="day-head" key={isoDate(day)}>{formatDay(day)}</div>)}</div>
-          {activeEmployees.map((employee) => (
-            <div className="planner-grid employee-row" key={employee.id}>
-              <div className="employee-cell"><strong>{employee.name}</strong><small>{employee.role}</small></div>
-              {weekDays.map((day) => {
-                const availability = availabilityFor(employee.id, day); const dayEntries = entriesFor(employee.id, day);
-                return <div className="day-cell" key={isoDate(day)}>
-                  <button className={`availability-pill ${availability?.status ?? "unknown"}`} onClick={() => openAvailability(employee.id, day)}>{availability ? statusLabels[availability.status] : "Keine Angabe"}{availability?.status === "partial" && <span>{availability.startTime}–{availability.endTime}</span>}</button>
-                  {dayEntries.map((entry) => <article className={`entry ${entry.kind}`} key={entry.id}><button className="delete" onClick={() => deleteEntry(entry.id)}>×</button><strong>{entry.title}</strong>{entry.kind === "shift" && <span>{entry.startTime}–{entry.endTime}</span>}{entry.note && <small>{entry.note}</small>}</article>)}
-                  <button className="add-shift" onClick={() => openEntry(employee.id, day)}>+ Schicht</button>
-                </div>;
-              })}
-            </div>
-          ))}
-        </section>
-      ) : (
-        <section className="employee-availability card">
-          <div className="employee-intro"><div><p className="eyebrow">Meine Verfügbarkeit</p><h2>{currentEmployee?.name ?? "Mitarbeiter"}</h2><p>Bitte für jeden Tag eine Rückmeldung eintragen. Teilweise Verfügbarkeit kann mit Uhrzeit angegeben werden.</p></div><span className="week-badge">{formatRange(weekStart)}</span></div>
-          <div className="availability-cards">{weekDays.map((day) => { const availability = currentEmployee ? availabilityFor(currentEmployee.id, day) : undefined; return <button className={`availability-card ${availability?.status ?? "unknown"}`} key={isoDate(day)} onClick={() => currentEmployee && openAvailability(currentEmployee.id, day)}><strong>{formatDay(day)}</strong><span>{availability ? statusLabels[availability.status] : "Noch keine Angabe"}</span>{availability?.status === "partial" && <small>{availability.startTime}–{availability.endTime}</small>}{availability?.note && <small>{availability.note}</small>}</button>; })}</div>
-        </section>
-      )}
+    <h2>🏢 Restaurants</h2>
+    <ul>
+      {locations.map((location) => (
+        <li key={location.id}>
+          <strong>{location.name}</strong> – {location.city}
+        </li>
+      ))}
+    </ul>
 
-      <p className="status">Version 4.4 speichert Verfügbarkeiten und Dienstplan zunächst auf diesem Gerät. Die Supabase-Struktur ist vorbereitet.</p>
-
-      {availabilityOpen && <div className="modal-backdrop" onMouseDown={() => setAvailabilityOpen(false)}><form className="modal" onSubmit={saveAvailability} onMouseDown={(event) => event.stopPropagation()}><div className="modal-title"><h2>Verfügbarkeit eintragen</h2><button type="button" onClick={() => setAvailabilityOpen(false)}>×</button></div><label><span>Status</span><select value={availabilityStatus} onChange={(event) => setAvailabilityStatus(event.target.value as AvailabilityStatus)}>{Object.entries(statusLabels).filter(([key]) => key !== "unknown").map(([key, label]) => <option key={key} value={key}>{label}</option>)}</select></label>{availabilityStatus === "partial" && <div className="time-row"><label><span>Von</span><input type="time" value={availabilityStart} onChange={(event) => setAvailabilityStart(event.target.value)} /></label><label><span>Bis</span><input type="time" value={availabilityEnd} onChange={(event) => setAvailabilityEnd(event.target.value)} /></label></div>}<label><span>Bemerkung (optional)</span><textarea rows={3} value={availabilityNote} onChange={(event) => setAvailabilityNote(event.target.value)} placeholder="z. B. Kinderbetreuung, Arzttermin" /></label><button className="primary full" type="submit">Verfügbarkeit speichern</button></form></div>}
-
-      {entryOpen && <div className="modal-backdrop" onMouseDown={() => setEntryOpen(false)}><form className="modal" onSubmit={addEntry} onMouseDown={(event) => event.stopPropagation()}><div className="modal-title"><h2>Eintrag anlegen</h2><button type="button" onClick={() => setEntryOpen(false)}>×</button></div><div className="kind-switch"><button type="button" className={kind === "shift" ? "active" : ""} onClick={() => { setKind("shift"); setTitle("Abendschicht"); }}>Schicht</button><button type="button" className={kind === "task" ? "active" : ""} onClick={() => { setKind("task"); setTitle("Vorbereitung"); }}>Aufgabe</button></div><label><span>Bezeichnung</span><input value={title} onChange={(event) => setTitle(event.target.value)} required /></label>{kind === "shift" && <div className="time-row"><label><span>Beginn</span><input type="time" value={startTime} onChange={(event) => setStartTime(event.target.value)} /></label><label><span>Ende</span><input type="time" value={endTime} onChange={(event) => setEndTime(event.target.value)} /></label></div>}<label><span>Hinweis</span><textarea rows={3} value={note} onChange={(event) => setNote(event.target.value)} /></label><button className="primary full" type="submit">Speichern</button></form></div>}
-    </main>
-  );
-}
+    <h2>👥 Mitarbeiter</h2>
+    <ul>
+      {employees.map((employee) => (
+        <li key={employee.id}>
+          <strong>{employee.first_name}</strong> – {employee.position} (
+          {employee.weekly_hours} Std.) –{" "}
+          {employee.locations?.name ?? "Kein Betrieb"}
+        </li>
+      ))}
+    </ul>
+  </main>
+);
