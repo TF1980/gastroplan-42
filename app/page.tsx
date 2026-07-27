@@ -129,7 +129,7 @@ export default function Home() {
     <ul>
       {locations.map((location) => (
         <li key={location.id}>
-          <strong>{location.name}</strong> – {location.city}
+          <strong>{location.name}</strong>
         </li>
       ))}
     </ul>
